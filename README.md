@@ -1,40 +1,13 @@
-# Vulkan Ecosystem Tools
+# Vulkan Layer Factory
 
-The repository contains the following Vulkan Tools:
-- [Vulkan Configurator](vkconfig/README.md)
-- [`VK_LAYER_LUNARG_api_dump`, `VK_LAYER_LUNARG_screenshot` and `VK_LAYER_LUNARG_monitor` layers](layersvt/README.md)
-- [Vulkan Installation Analyzer](via/README.md)
+This project provides the source code for the Vulkan Layer Factory (VLF) and its tests.
+Because VLF has been deprecated, it has been moved to this repo for archiving.
+If you desire to make changes to code in this repo, please fork this repo and make changes in your own copy. No contributions are being acceped for this project.
 
-These tools have binaries included within the [Vulkan SDK](https://www.lunarg.com/vulkan-sdk/).
 
-VkTrace and VkReplay have been deprecated and replaced by [gfxreconstruct](https://github.com/LunarG/gfxreconstruct).
-Both VkTrace and VkReplay have been removed from VulkanTools and can now be found in the [vktrace](https://github.com/LunarG/vktrace) archive.
-Both these tools are also no longer part of the [Vulkan SDK](https://www.lunarg.com/vulkan-sdk/).
+## CI Testing
 
-## Default branch changed to 'main' 2023-01-17
-
-The default branch of this repository is now 'main'. This change should be largely transparent to repository users, since github rewrites many references to the old 'master' branch to 'main'. However, if you have a checked-out local clone, you may wish to take the following steps as recommended by github:
-
-```sh
-git branch -m master main
-git fetch origin
-git branch -u origin/main main
-git remote set-head origin -a
-```
-
-## CI Build Status
-| Build Status |
-|:------------|
-| [![Build Status](https://github.com/LunarG/VulkanTools/actions/workflows/build_windows.yml/badge.svg?branch=main)](https://github.com/LunarG/VulkanTools/actions) |
-| [![Build Status](https://github.com/LunarG/VulkanTools/actions/workflows/build_linux.yml/badge.svg?branch=main)](https://github.com/LunarG/VulkanTools/actions) |
-| [![Build Status](https://github.com/LunarG/VulkanTools/actions/workflows/build_linux_gn.yml/badge.svg?branch=main)](https://github.com/LunarG/VulkanTools/actions) |
-| [![Build Status](https://github.com/LunarG/VulkanTools/actions/workflows/build_android.yml/badge.svg?branch=main)](https://github.com/LunarG/VulkanTools/actions) |
-
-## Contributing
-
-If you intend to contribute, the preferred work flow is for you to develop your contribution
-in a fork of this repo in your GitHub account and then submit a pull request.
-Please see the [CONTRIBUTING](CONTRIBUTING.md) file in this repository for more details
+Since this project is deprecated, no Continuous Intergration tests are run agains the source in this project. There do exists several tests in the test directory that you can run to test basic functionalty after you have made a source change.
 
 ## How to Build and Run
 

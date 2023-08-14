@@ -8,10 +8,10 @@ supplementing the loader and validation layer core components found at https://g
 
 ### Windows System Requirements
 
-Windows 7+ with additional required software packages:
+Windows 10+ with additional required software packages:
 
 - Microsoft Visual Studio 2017, 2019 or 2022: it is possible that lesser/older versions may work, but not guaranteed.
-- [CMake 3.10.2](https://cmake.org/files/v3.10/cmake-3.10.2-win64-x64.zip) is recommended.
+- [CMake 3.17.2](https://cmake.org/files/v3.17/cmake-3.17.2-win64-x64.zip) is recommended.
   - Tell the installer to "Add CMake to the system `PATH`" environment variable.
 - Python 3 (from https://www.python.org/downloads).  Notes:
   - Select to install the optional sub-package to add Python to the system `PATH` environment variable.
@@ -20,26 +20,12 @@ Windows 7+ with additional required software packages:
   - Tell the installer to allow it to be used for "Developer Prompt" as well as "Git Bash".
   - Tell the installer to treat line endings "as is" (i.e. both DOS and Unix-style line endings).
 
-Optional software packages:
-
-- *[Qt 5](https://www.qt.io/download)* is required to build *[Vulkan Configurator]*(./vkconfig/vkconfig.md).
-  - The Qt `bin` directory requires to be added to the `PATH` environment variable for *Qt* to be detected and Vulkan Configurator built.
-  - If `Qt` is not directed, *[Vulkan Configurator]* build will be skipped.
-  - Vulkan Configurator requires at least Qt 5.5 with the binaries corresponding to the Visual Studio toolset.
-- *Cygwin* (from https://www.cygwin.com/).
-  - *Cygwin* provides some Linux-like tools, which are valuable for obtaining the source code, and running CMake.
-    Especially valuable are the *BASH* shell and git packages.
-  - If you do not wish to use *Cygwin*, there are other shells and environments that can be used.
-    You can also use a Git package that does not come from *Cygwin*.
-
 ### Ubuntu System Requirements
 
-Ubuntu 18.04 LTS and 20.04 have been tested with this repo.
-
-[CMake 3.10.2](https://cmake.org/files/v3.10/cmake-3.10.2-Linux-x86_64.tar.gz) is recommended.
+[CMake 3.17.2](https://cmake.org/files/v3.17/cmake-3.17.2-Linux-x86_64.tar.gz) is recommended.
 
 ```
-# Dependencies from included submodule components
+# Dependencies
 sudo apt-get install git build-essential bison libx11-xcb-dev libxkbcommon-dev libwayland-dev libxrandr-dev libxcb-randr0-dev
 
 # Additional dependencies for this repo:
@@ -49,43 +35,24 @@ sudo apt-get install wget autotools-dev libxcb-keysyms1 libxcb-keysyms1-dev libx
 sudo apt-get install libc6-dev-i386 g++-multilib
 ```
 
-Optional software packages:
-
-On Ubuntu 18.04 LTS or newer, you may build [Vulkan Configurator](./vkconfig/README.md) only if you also install several
-additional Qt dependencies:
-
-```
-sudo apt-get install qt5-default
-```
-
 ### Fedora Core System Requirements
 
-Fedora Core 28 and 29 were tested with this repo.
+[CMake 3.17.2](https://cmake.org/files/v3.17/cmake-3.17.2-Linux-x86_64.tar.gz) is recommended.
 
-[CMake 3.10.2](https://cmake.org/files/v3.10/cmake-3.10.2-Linux-x86_64.tar.gz) is recommended.
 
 Additional package dependencies include:
 
 ```
-# Dependencies from included submodule components
-sudo dnf install git @development-tools glm-devel \
+# Dependencies
+sudo dnf install git @development-tools \
                  libpng-devel wayland-devel libpciaccess-devel \
                  libX11-devel libXpresent libxcb xcb-util libxcb-devel libXrandr-devel \
                  xcb-util-keysyms-devel xcb-util-wm-devel
 ```
 
-Optional software packages:
-
-You may build [Vulkan Configurator](./vkconfig/README.md) only if you also install several additional Qt dependencies:
-```
-sudo dnf install qt
-```
-
 ### macOS System Requirements
 
-macOS 10.11.4 have been tested with this repo.
-
-- [CMake 3.10.2](https://cmake.org/files/v3.10/cmake-3.10.2-Darwin-x86_64.tar.gz) is recommended.
+[CMake 3.17.2](https://cmake.org/files/v3.17/cmake-3.17.2-Linux-x86_64.tar.gz) is recommended.
 
 Setup Homebrew and components
 
@@ -125,53 +92,38 @@ export PATH=$HOME/Library/Android/sdk/ndk-bundle:$PATH
 
 ## Getting Started Build Instructions
 
-### 64-bit Windows Build 
+### 64-bit Windows Build
 ```
-    git clone --recurse-submodules git@github.com:LunarG/VulkanTools.git
+    git clone git@github.com:LunarG/VulkanTools.git
     cd VulkanTools
     mkdir build
-    .\update_external_sources.bat
     cd build
     ..\scripts\update_deps.py --arch x64
     cmake -A x64 -C helper.cmake ..
     cmake --build . --parallel
 ```
 
-### 32-bit Windows Build 
+### 32-bit Windows Build
 ```
-    git clone --recurse-submodules git@github.com:LunarG/VulkanTools.git
+    git clone git@github.com:LunarG/VulkanTools.git
     cd VulkanTools
     mkdir build
-     .\update_external_sources.bat
     cd build
     ..\scripts\update_deps.py --arch Win32
     cmake -A Win32 -C helper.cmake ..
     cmake --build . --parallel
 ```
 
-### Windows Unit Tests
-
-```
-ctest -C Debug --output-on-failure --parallel 16
-ctest -C Release  --output-on-failure --parallel 16
-```
 
 ### Linux and macOS Build
 ```
-    git clone --recurse-submodules git@github.com:LunarG/VulkanTools.git
+    git clone git@github.com:LunarG/VulkanTools.git
     cd VulkanTools
     mkdir build
-    ./update_external_sources.sh
     cd build
     ../scripts/update_deps.py
     cmake -C helper.cmake ..
     cmake --build . --parallel
-```
-
-### Linux and macOS Unit Tests
-
-```
-ctest --parallel 8 --output-on-failure
 ```
 
 ### Android Build
@@ -195,7 +147,7 @@ cd build-android
 ndk-build -j $(nproc)
 ```
 
-#### Android Build from macOS 
+#### Android Build from macOS
 From your terminal:
 ```
 cd build-android
@@ -221,50 +173,12 @@ To create your local git repository of VulkanTools:
 cd YOUR_DEV_DIRECTORY
 
 # Clone the VulkanTools repo
-git clone --recurse-submodules git@github.com:LunarG/VulkanTools.git
+git clone git@github.com:LunarG/VulkanTools.git
 
 # Enter the folder containing the cloned source
 cd VulkanTools
 
-# This will perform some initialization and ensure subcomponents are built:
-./update_external_sources.sh    # linux
-./update_external_sources.bat   # windows
 ```
-
-### Updating the Repository After a Pull
-
-The VulkanTools repository contains a submodule named jsoncpp. You may occasionally have to update the source in that submodules.
-You will know this needs to be performed when you perform a pull, and you check the status of your tree with `git status` and something similar to the following shows:
-
-```
-(main *)] $ git status
-On branch main
-Your branch is up-to-date with 'origin/main'.
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-  modified:   submodules/jsoncpp (new commits)
-
-no changes added to commit (use "git add" and/or "git commit -a")
-```
-
-To resolve this, simply update the sub-module using:
-
-```
-git submodule update --recursive
-```
-
-Then, update the external sources as before:
-
-```
-# This will perform required subcomponent operations.
-./update_external_sources.sh    # linux
-./update_external_sources.bat   # windows
-```
-
-Now, you should be able to continue building as normal.
 
 ### Repository Dependencies
 This repository attempts to resolve some of its dependencies by using
@@ -340,10 +254,10 @@ directories and place them in any location.
 ### Getting Dependent Repositories using `update_deps.py` script
 
 The Python utility script, `scripts/update_deps.py`, can be use to gather and
-build the dependent repositories mentioned above. This script uses information 
-stored in the `scripts/known_good.json` file to check out dependent repository 
-revisions that are known to be compatible with the revision of this repository 
-that you currently have checked out. As such, this script is useful as a 
+build the dependent repositories mentioned above. This script uses information
+stored in the `scripts/known_good.json` file to check out dependent repository
+revisions that are known to be compatible with the revision of this repository
+that you currently have checked out. As such, this script is useful as a
 quick-start tool for common use cases and default configurations.
 
 ### Advanced Windows Build
