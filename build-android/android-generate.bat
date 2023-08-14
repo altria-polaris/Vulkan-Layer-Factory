@@ -47,20 +47,6 @@ py -3 %VT_SCRIPTS%\vt_genvk.py -registry %REGISTRY% -scripts %REGISTRY_PATH% lay
 py -3 %VT_SCRIPTS%\vt_genvk.py -registry %REGISTRY% -scripts %REGISTRY_PATH% layer_factory.cpp
 py -3 %VT_SCRIPTS%\vlf_makefile_generator.py ..\..\..\layer_factory %REGISTRY_PATH%\..\include
 
-REM apidump
-echo Generating VT apidump header/source files
-echo ********
-py -3 %VT_SCRIPTS%\vt_genvk.py -registry %REGISTRY% -scripts %REGISTRY_PATH% api_dump.cpp
-py -3 %VT_SCRIPTS%\vt_genvk.py -registry %REGISTRY% -scripts %REGISTRY_PATH% api_dump_text.h
-py -3 %VT_SCRIPTS%\vt_genvk.py -registry %REGISTRY% -scripts %REGISTRY_PATH% api_dump_html.h
-py -3 %VT_SCRIPTS%\vt_genvk.py -registry %REGISTRY% -scripts %REGISTRY_PATH% api_dump_json.h
-
-
-py -3 %VT_SCRIPTS%\vt_genvk.py -registry %VIDEO_REGISTRY% -scripts %REGISTRY_PATH% api_dump_video_text.h
-py -3 %VT_SCRIPTS%\vt_genvk.py -registry %VIDEO_REGISTRY% -scripts %REGISTRY_PATH% api_dump_video_html.h
-py -3 %VT_SCRIPTS%\vt_genvk.py -registry %VIDEO_REGISTRY% -scripts %REGISTRY_PATH% api_dump_video_json.h
-
-
 REM Copy over the built source files to LVL.  Otherwise,
 REM cube won't build.
 echo Entering third_party\Vulkan-ValidationLayers\build-android

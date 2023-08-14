@@ -154,36 +154,20 @@ if (VULKAN_LOADER_INSTALL_DIR)
 elseif(ENV{VULKAN_LOADER_INSTALL_DIR})
     message(STATUS "VULKAN_LOADER_INSTALL_DIR environment variable specified, using find_package to locate Vulkan")
 endif()
-set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH};${VULKAN_LOADER_INSTALL_DIR};${VULKAN_HEADERS_INSTALL_DIR};${JSONCPP_INSTALL_DIR};$ENV{VULKAN_LOADER_INSTALL_DIR};$ENV{VULKAN_HEADERS_INSTALL_DIR};$ENV{JSONCPP_INSTALL_DIR})
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH};${VULKAN_LOADER_INSTALL_DIR};${VULKAN_HEADERS_INSTALL_DIR};$ENV{VULKAN_LOADER_INSTALL_DIR};$ENV{VULKAN_HEADERS_INSTALL_DIR})
 find_package(Vulkan)
-
-find_package(jsoncpp REQUIRED CONFIG)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows" OR
     CMAKE_SYSTEM_NAME STREQUAL "Linux" OR
     CMAKE_SYSTEM_NAME MATCHES "BSD")
 
     option(BUILD_TESTS "Build tests" ON)
-    option(BUILD_APIDUMP "Build api_dump layer" ON)
-    option(BUILD_MONITOR "Build monitor layer" ON)
-    option(BUILD_SCREENSHOT "Build screenshot layer" ON)
     option(BUILD_VLF "Build layer_factory" ON)
-    option(BUILD_VIA "Build via" ON)
-
-    option(BUILD_LAYERMGR "Build Vulkan Configurator" ON)
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 
-    option(BUILD_LOADER OFF)
     option(BUILD_TESTS OFF)
-    option(BUILD_APIDUMP "Build api_dump layer" ON)
-    option(BUILD_MONITOR "Build monitor layer" ON)
-    option(BUILD_SCREENSHOT "Build screenshot layer" ON)
     option(BUILD_VLF OFF)
-    option(BUILD_DEMOS OFF)
-    option(BUILD_VKJSON OFF)
-    option(BUILD_VIA "Build VIA" ON)
-    option(BUILD_LAYERMGR "Build Vulkan Configurator" ON)
 
 endif()
 
@@ -211,21 +195,5 @@ if(BUILD_VLF)
     add_subdirectory(layer_factory)
 endif()
 
-if(BUILD_VIA)
-    add_subdirectory(via)
-endif()
 
-add_subdirectory(vku)
-if(BUILD_APIDUMP OR BUILD_MONITOR OR BUILD_SCREENSHOT)
-    add_subdirectory(layersvt)
-endif()
 
-if(BUILD_LAYERMGR)
-    include_directories(external)
-
-    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-    add_subdirectory(external/googletest)
-
-    add_subdirectory(vkconfig_core)
-    add_subdirectory(vkconfig)
-endif()

@@ -57,10 +57,6 @@ function create_APK() {
     apksigner sign --verbose --ks ~/.android/debug.keystore --ks-pass pass:android bin/$1.apk
 }
 
-#
-# Init base submodules
-#
-(pushd ..; git submodule update --init --recursive; popd)
 
 #
 # build layers
